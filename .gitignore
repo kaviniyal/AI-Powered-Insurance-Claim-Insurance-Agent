@@ -25,6 +25,10 @@ outputs/
 reports/
 logs/
 
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+
 # OS/editor
 .DS_Store
 Thumbs.db

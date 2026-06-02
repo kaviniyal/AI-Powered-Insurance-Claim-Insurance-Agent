@@ -1,0 +1,212 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0f1117;
+  --surface: #1a1d2e;
+  --card:    #20243a;
+  --border:  #2e334d;
+  --accent:  #4f8ef7;
+  --green:   #34c77b;
+  --yellow:  #f5a623;
+  --red:     #e84040;
+  --text:    #e2e8f0;
+  --muted:   #8892a4;
+  --radius:  10px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: .6rem 1.5rem;
+  transition: opacity .15s;
+}
+.btn-primary:hover  { opacity: .85; }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: .6rem 1.2rem;
+  transition: background .15s;
+}
+.btn-secondary:hover { background: var(--border); }
+
+/* ── Forms ───────────────────────────────────────── */
+.form-group { margin-bottom: .9rem; }
+
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: .35rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 14px;
+  padding: .6rem .85rem;
+  outline: none;
+  transition: border-color .15s;
+  font-family: inherit;
+}
+input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+textarea { resize: vertical; min-height: 90px; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+
+/* ── Card ────────────────────────────────────────── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.card h3 {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: .75rem;
+}
+
+/* ── Badges ──────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+.badge-green  { background: #1a3a2a; color: var(--green); }
+.badge-red    { background: #3a1a1a; color: var(--red); }
+.badge-yellow { background: #3a2e1a; color: var(--yellow); }
+.badge-blue   { background: #1a2a3a; color: var(--accent); }
+.badge-purple { background: #2a1a3a; color: #b78ef7; }
+
+/* ── Info rows ───────────────────────────────────── */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .3rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--muted); }
+.info-val  { font-weight: 500; text-align: right; }
+
+/* ── Step list ───────────────────────────────────── */
+.step-list { list-style: none; padding: 0; }
+.step-list li {
+  padding: .3rem 0 .3rem 1.2rem;
+  position: relative;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+/* ── Risk meter ──────────────────────────────────── */
+.risk-meter-bar {
+  background: var(--border);
+  border-radius: 99px;
+  height: 8px;
+  overflow: hidden;
+}
+.risk-meter-fill { height: 100%; border-radius: 99px; transition: width .4s ease; }
+
+/* ── Claim item ──────────────────────────────────── */
+.claim-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: .75rem;
+}
+.claim-item.fraud { border-left-color: var(--red); }
+.claim-item.legit { border-left-color: var(--green); }
+.claim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+.claim-doc    { font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+
+/* ── Signal item ─────────────────────────────────── */
+.signal-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .75rem 1rem;
+  margin-bottom: .5rem;
+}
+.signal-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .3rem; }
+
+/* ── Spinner ─────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-row { display: flex; align-items: center; gap: .5rem; color: var(--muted); font-size: 13px; padding: .75rem 0; }
+
+/* ── Error box ───────────────────────────────────── */
+.error-box {
+  background: #3a1a1a;
+  border: 1px solid var(--red);
+  border-radius: 6px;
+  color: var(--red);
+  padding: .75rem 1rem;
+  font-size: 13px;
+  margin-bottom: .75rem;
+}
+
+/* ── Analysis grid ───────────────────────────────── */
+.analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 700px) { .analysis-grid { grid-template-columns: 1fr; } }
+
+/* ── HITL banner ─────────────────────────────────── */
+.hitl-banner {
+  background: #2e2010;
+  border: 1px solid var(--yellow);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.hitl-banner h4 { color: var(--yellow); margin-bottom: .5rem; }

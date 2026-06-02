@@ -6,7 +6,7 @@ refines the query and retries once before returning results.
 
 import os
 import sys
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 from llm_factory import get_llm

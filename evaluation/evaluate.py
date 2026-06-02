@@ -129,7 +129,7 @@ def run_llm_judge(query: str, answer: str, context: list[str]) -> dict:
     Returns scores 1-5 for each dimension.
     """
     from langchain_openai import ChatOpenAI
-    from langchain.prompts import ChatPromptTemplate
+    from langchain_core.prompts import ChatPromptTemplate
 
     llm = ChatOpenAI(model=settings.llm_model, temperature=0, openai_api_key=settings.openai_api_key)
     prompt = ChatPromptTemplate.from_messages([
