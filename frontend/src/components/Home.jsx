@@ -101,7 +101,9 @@ export default function Home({ setTab }) {
     const el = scrollRef.current
     if (!el) return
 
-    let paused = false
+    let paused    = false
+    let resetting = false
+
     const pause  = () => { paused = true }
     const resume = () => { paused = false }
 
@@ -109,10 +111,15 @@ export default function Home({ setTab }) {
     el.addEventListener('mouseleave', resume)
 
     const interval = setInterval(() => {
-      if (paused) return
-      // reached bottom — reset to top smoothly
+      if (paused || resetting) return
+
       if (el.scrollTop + el.clientHeight >= el.scrollHeight - 2) {
-        el.scrollTo({ top: 0, behavior: 'smooth' })
+        resetting = true
+        // jump instantly to top, then resume scrolling
+        setTimeout(() => {
+          el.scrollTop = 0
+          resetting = false
+        }, 800)
       } else {
         el.scrollTop += 1
       }

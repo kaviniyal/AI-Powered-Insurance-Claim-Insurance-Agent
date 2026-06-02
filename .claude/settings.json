@@ -5,7 +5,13 @@
       "Bash(Select-Object FullName)",
       "Bash(Sort-Object FullName)",
       "PowerShell(cd \"c:\\\\Users\\\\kavin.k\\\\Desktop\\\\Capstone\\\\Capstone\"; \\(Get-Item data\\\\fraud_oracle.csv\\).Length / 1MB)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(pip install *)",
+      "Bash(python -c ' *)",
+      "Bash(cd \"c:\\\\Users\\\\kavin.k\\\\Desktop\\\\Capstone\\\\Capstone\" && rm -f \"=3.0.0\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\kavin.k\\Desktop\\Capstone\\Capstone"
     ]
   }
 }

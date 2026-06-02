@@ -104,10 +104,9 @@ function Message({ msg }) {
 }
 
 export default function Chatbot() {
+  const WELCOME = { from: 'bot', text: "👋 Hi! I'm your ClaimsIQ Assistant.\n\nMay I help you? Ask me anything about how to use this platform!" }
   const [open,     setOpen]     = useState(false)
-  const [messages, setMessages] = useState([
-    { from: 'bot', text: "👋 Hi! I'm your ClaimsIQ Assistant.\n\nMay I help you? Ask me anything about how to use this platform!" }
-  ])
+  const [messages, setMessages] = useState([WELCOME])
   const [input,    setInput]    = useState('')
   const [typing,   setTyping]   = useState(false)
 
@@ -303,7 +302,10 @@ export default function Chatbot() {
       <div
         ref={btnRef}
         onMouseDown={onMouseDown}
-        onClick={() => setOpen(o => !o)}
+        onClick={() => {
+          if (!open) setMessages([WELCOME])
+          setOpen(o => !o)
+        }}
         style={{
           position: 'fixed',
           left: pos.x, top: pos.y,
