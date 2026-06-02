@@ -27,20 +27,33 @@ DOCS_CACHE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "docs_ca
 # ── Document builders ─────────────────────────────────────────────────────────
 
 def _row_to_document(row: dict) -> str:
+    # fraud_oracle.csv actual columns (after lowercase):
+    # policynumber, policytype, basepolicy, fraudfound_p, accidentarea, fault,
+    # make, vehiclecategory, vehicleprice, days_policy_accident, days_policy_claim,
+    # pastnumberofclaims, policereportfiled, witnesspresent, ageofpolicyholder,
+    # driverrating, addresschange_claim, month, year, age, sex, maritalstatus
+    fraud_raw = row.get("fraudfound_p", 0)
+    fraud_label = "Y" if str(fraud_raw) in ("1", "1.0", "True", "yes", "Y") else "N"
+
     return (
-        f"Claim ID: {row.get('policy_number', row.get('claim_id', 'N/A'))}. "
-        f"Policy Type: {row.get('policy_type', 'N/A')}. "
-        f"Accident Type: {row.get('incident_type', row.get('accident_type', 'N/A'))}. "
-        f"Claim Amount: {row.get('total_claim_amount', row.get('claim_amount', 'N/A'))}. "
-        f"Customer Region: {row.get('insured_zip', row.get('customer_region', 'N/A'))}. "
-        f"Fraud Label: {row.get('fraud_reported', row.get('fraud_label', 'N/A'))}. "
-        f"Incident Date: {row.get('incident_date', 'N/A')}. "
-        f"Customer History: {row.get('insured_occupation', row.get('customer_history', 'N/A'))}. "
-        f"Claim Status: {row.get('incident_severity', row.get('claim_status', 'N/A'))}. "
-        f"Number of Vehicles Involved: {row.get('number_of_vehicles_involved', 'N/A')}. "
-        f"Bodily Injuries: {row.get('bodily_injuries', 'N/A')}. "
-        f"Property Damage: {row.get('property_damage', 'N/A')}. "
-        f"Police Report: {row.get('police_report_available', 'N/A')}."
+        f"Policy Number: {row.get('policynumber', 'N/A')}. "
+        f"Policy Type: {row.get('policytype', 'N/A')}. "
+        f"Base Policy: {row.get('basepolicy', 'N/A')}. "
+        f"Fraud Found: {fraud_label}. "
+        f"Accident Area: {row.get('accidentarea', 'N/A')}. "
+        f"Fault: {row.get('fault', 'N/A')}. "
+        f"Vehicle: {row.get('vehiclecategory', 'N/A')} ({row.get('make', 'N/A')}), "
+        f"Price: {row.get('vehicleprice', 'N/A')}. "
+        f"Days Policy to Accident: {row.get('days_policy_accident', 'N/A')}. "
+        f"Days Policy to Claim: {row.get('days_policy_claim', 'N/A')}. "
+        f"Past Claims: {row.get('pastnumberofclaims', 'N/A')}. "
+        f"Police Report Filed: {row.get('policereportfiled', 'N/A')}. "
+        f"Witness Present: {row.get('witnesspresent', 'N/A')}. "
+        f"Driver Rating: {row.get('driverrating', 'N/A')}. "
+        f"Age of Policyholder: {row.get('ageofpolicyholder', 'N/A')}. "
+        f"Number of Cars: {row.get('numberofcars', 'N/A')}. "
+        f"Address Change: {row.get('addresschange_claim', 'N/A')}. "
+        f"Incident: {row.get('month', 'N/A')} {row.get('year', 'N/A')}."
     )
 
 
@@ -50,15 +63,18 @@ def _build_metadata(row: dict, idx: int) -> dict:
             return "unknown"
         return str(val)
 
+    fraud_raw = row.get("fraudfound_p", 0)
+    fraud_label = "Y" if str(fraud_raw) in ("1", "1.0", "True", "yes", "Y") else "N"
+
     return {
-        "claim_id":        safe(row.get("policy_number", idx)),
-        "policy_type":     safe(row.get("policy_type")),
-        "accident_type":   safe(row.get("incident_type", row.get("accident_type"))),
-        "claim_amount":    safe(row.get("total_claim_amount", row.get("claim_amount"))),
-        "customer_region": safe(row.get("insured_zip", row.get("customer_region"))),
-        "fraud_label":     safe(row.get("fraud_reported", row.get("fraud_label"))),
-        "incident_date":   safe(row.get("incident_date")),
-        "claim_status":    safe(row.get("incident_severity", row.get("claim_status"))),
+        "claim_id":        safe(row.get("policynumber", idx)),
+        "policy_type":     safe(row.get("policytype")),
+        "accident_type":   safe(row.get("accidentarea")),
+        "claim_amount":    safe(row.get("vehicleprice")),
+        "customer_region": safe(row.get("accidentarea")),
+        "fraud_label":     fraud_label,
+        "incident_date":   f"{safe(row.get('month'))} {safe(row.get('year'))}",
+        "claim_status":    safe(row.get("fault")),
     }
 
 

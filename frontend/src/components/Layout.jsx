@@ -1,83 +1,139 @@
+import Chatbot from './Chatbot'
+
 const TABS = [
-  { id: 'search',    label: 'Claim Search' },
-  { id: 'analyze',   label: 'Full Analysis' },
-  { id: 'correlate', label: 'Correlation' },
-  { id: 'settings',  label: 'Settings' },
+  { id: 'home',      label: 'Home',          icon: '🏠' },
+  { id: 'search',    label: 'Claim Search',   icon: '🔍' },
+  { id: 'analyze',   label: 'Full Analysis',  icon: '🧠' },
+  { id: 'correlate', label: 'Correlation',    icon: '🔗' },
+  { id: 'settings',  label: 'Settings',       icon: '⚙️' },
 ]
 
 export default function Layout({ tab, setTab, onLogout, children }) {
   return (
-    <>
-      {/* Header */}
+    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+
+      {/* Top info bar */}
+      <div style={{
+        background: 'var(--primary)',
+        padding: '.35rem 2rem',
+        display: 'flex', justifyContent: 'flex-end',
+        fontSize: 12, color: 'rgba(255,255,255,.85)',
+        gap: '1.5rem',
+      }}>
+        <span>📞 Claims Helpline: 1800-258-5881</span>
+        <span>🕐 Mon–Sat 9AM–6PM</span>
+      </div>
+
+      {/* Header — logo + tabs + user in one row */}
       <header style={{
-        background: 'var(--surface)',
+        background: '#fff',
         borderBottom: '1px solid var(--border)',
         padding: '0 2rem',
         display: 'flex',
         alignItems: 'center',
-        gap: '1rem',
-        height: 60,
+        height: 90,
+        gap: '1.5rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,.06)',
       }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent)' }}>
-            Insurance Claims Intelligence
-          </div>
-          <div style={{ fontSize: 12, color: 'var(--muted)' }}>
-            AI-Powered Fraud Detection &amp; Investigation Assistant
-          </div>
-        </div>
-        <button
-          onClick={onLogout}
+        {/* Clickable logo */}
+        <img
+          src="/logo.png"
+          alt="ClaimsIQ Logo"
+          onClick={() => setTab('home')}
           style={{
-            background: 'none',
-            border: '1px solid var(--border)',
-            borderRadius: 6,
-            color: 'var(--muted)',
+            height: 80,
+            width: 'auto',
+            objectFit: 'contain',
             cursor: 'pointer',
-            fontSize: 12,
-            padding: '.3rem .75rem',
-            transition: 'color .15s, border-color .15s',
+            flexShrink: 0,
+            transition: 'opacity .15s',
           }}
-          onMouseEnter={e => { e.target.style.color = 'var(--red)'; e.target.style.borderColor = 'var(--red)'; }}
-          onMouseLeave={e => { e.target.style.color = 'var(--muted)'; e.target.style.borderColor = 'var(--border)'; }}
-        >
-          Logout
-        </button>
-      </header>
+          onMouseEnter={e => e.currentTarget.style.opacity = '.8'}
+          onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+          title="Go to Home"
+        />
 
-      {/* Nav */}
-      <nav style={{
-        background: 'var(--surface)',
-        borderBottom: '1px solid var(--border)',
-        display: 'flex',
-        padding: '0 2rem',
-        gap: '.25rem',
-      }}>
-        {TABS.map(t => (
+        {/* Divider */}
+        <div style={{ width: 1, height: 40, background: 'var(--border)', flexShrink: 0, marginLeft: '1.5rem' }} />
+
+        {/* Nav tabs inline */}
+        <nav style={{ display: 'flex', gap: '0', flex: 1 }}>
+          {TABS.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              style={{
+                background: 'none',
+                border: 'none',
+                borderBottom: tab === t.id ? '3px solid var(--primary)' : '3px solid transparent',
+                color: tab === t.id ? 'var(--primary)' : 'var(--muted)',
+                cursor: 'pointer',
+                fontSize: 13,
+                fontWeight: tab === t.id ? 700 : 500,
+                padding: '0 1.1rem',
+                height: 90,
+                display: 'flex', alignItems: 'center', gap: '.4rem',
+                transition: 'all .15s',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span>{t.icon}</span>{t.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* Right side — user + sign out */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexShrink: 0 }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '.5rem',
+            padding: '.4rem .9rem',
+            background: '#f0f6ff',
+            borderRadius: 20,
+            fontSize: 13,
+          }}>
+            <span style={{ fontSize: 16 }}>👤</span>
+            <span style={{ fontWeight: 600, color: 'var(--primary)' }}>Admin</span>
+          </div>
           <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
+            onClick={onLogout}
             style={{
               background: 'none',
-              border: 'none',
-              borderBottom: tab === t.id ? '3px solid var(--accent)' : '3px solid transparent',
-              color: tab === t.id ? 'var(--accent)' : 'var(--muted)',
+              border: '1.5px solid var(--border)',
+              borderRadius: 6,
+              color: 'var(--muted)',
               cursor: 'pointer',
-              fontSize: 13,
-              fontWeight: 500,
-              padding: '.75rem 1rem',
-              transition: 'color .15s, border-color .15s',
+              fontSize: 12,
+              fontWeight: 600,
+              padding: '.4rem .85rem',
+              transition: 'all .15s',
             }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
           >
-            {t.label}
+            Sign Out
           </button>
-        ))}
-      </nav>
+        </div>
+      </header>
 
       {/* Content */}
-      <main style={{ maxWidth: 1100, margin: '0 auto', padding: '2rem 1.5rem' }}>
+      <main style={{ maxWidth: '100%', padding: '1.75rem 2rem' }}>
         {children}
       </main>
-    </>
+
+      <Chatbot />
+
+      {/* Footer */}
+      <footer style={{
+        background: '#fff',
+        borderTop: '1px solid var(--border)',
+        padding: '1rem 2rem',
+        textAlign: 'center',
+        fontSize: 12,
+        color: 'var(--muted)',
+        marginTop: '2rem',
+      }}>
+        © 2025 ClaimsIQ — AI-Powered Insurance Claims Intelligence Platform · Built for Prodapt FDE Capstone
+      </footer>
+    </div>
   )
 }
