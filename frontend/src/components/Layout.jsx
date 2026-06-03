@@ -5,6 +5,7 @@ const TABS = [
   { id: 'search',    label: 'Claim Search',  icon: '🔍' },
   { id: 'analyze',   label: 'Full Analysis', icon: '🧠' },
   { id: 'correlate', label: 'Correlation',   icon: '🔗' },
+  { id: 'history',   label: 'History',       icon: '📋' },
   { id: 'settings',  label: 'Settings',      icon: '⚙️' },
 ]
 

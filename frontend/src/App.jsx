@@ -5,6 +5,7 @@ import Home from './components/Home'
 import ClaimSearch from './components/ClaimSearch'
 import FullAnalysis from './components/FullAnalysis'
 import Correlation from './components/Correlation'
+import History from './components/History'
 import Settings from './components/Settings'
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
     search:    <ClaimSearch />,
     analyze:   <FullAnalysis />,
     correlate: <Correlation />,
+    history:   <History />,
     settings:  <Settings />,
   }
 
