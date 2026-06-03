@@ -1,7 +1,5 @@
 # AI-Powered Insurance Claims Intelligence Assistant
 
-FDE Training — Final Capstone Project | Prodapt Chennai
-
 ---
 
 ## Overview
